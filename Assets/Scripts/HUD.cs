@@ -6,9 +6,29 @@ using System;
 
 public class HUD : MonoBehaviour {
 
+	public Text LevelText;
+	public Text PushText;
 	public Text CountText;
-
 	public Prompt Prompt;
+
+	public string Level {
+		get {
+			return LevelText.text;
+		}
+		set {
+			LevelText.text = value;
+		}
+	}
+
+	public int PushLeft {
+		get {
+			return _pushLeft;
+		}
+		set {
+			_pushLeft = value;
+			PushText.text = "Push Left: " + _pushLeft;
+		}
+	}
 
 	public int BallCount {
 		get {
@@ -19,11 +39,12 @@ public class HUD : MonoBehaviour {
 			CountText.text = "Count: " + _ballCount;
 		}
 	}
-
+		
+	int _pushLeft;
 	int _ballCount;
 
-	// Use this for initialization
 	void Start () {
+		PushLeft = 5;
 		BallCount = 0;
 	}
 

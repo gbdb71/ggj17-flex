@@ -18,28 +18,34 @@ public class Board : MonoBehaviour {
 
 	public float AditionDelay = 0.2f;
 
+	public Action OnLastPush;
 
 	public Cube[,] Cubes;
 
 	public GameObject MasterCube;
+
+	public HUD HUD;
 	public Level Level;
 
-	// Use this for initialization
-	void Start () {
-		
-		CreateBoard ();
+	public void CreateBoard() {
 
+		MasterCube.SetActive (false);
 
-	}
-
-	void CreateBoard() {
-		
-		Cubes = new Cube[Row, Column];
+		if (Cubes != null) {
+			for (int i = 0; i < Row; i++) {
+				for (int j = 0; j < Column; j++) {
+					Destroy (Cubes [j, i].gameObject);
+				}
+			}
+		} else {
+			Cubes = new Cube[Row, Column];
+		}
 
 		for (int i = 0; i < Row; i++) {
 			for (int j = 0; j < Column; j++) {
 				
 				var clone = GameObject.Instantiate (MasterCube);
+				clone.SetActive (true);
 				clone.transform.parent = MasterCube.transform.parent;
 				float beginX = -Row * 0.5f;
 				float beginZ = -Column * 0.5f;
@@ -54,7 +60,6 @@ public class Board : MonoBehaviour {
 			}
 		}
 
-		MasterCube.SetActive (false);
 
 	}
 
@@ -79,8 +84,14 @@ public class Board : MonoBehaviour {
 
 	void OnSelected(Cube cube) {
 
-		Push (cube);
+		if (HUD.PushLeft == 0)
+			return;
 
+		HUD.PushLeft--;
+		Push (cube);
+	
+		if (HUD.PushLeft == 0 && OnLastPush != null)
+			OnLastPush ();
 	}
 
 	void Push(Cube cube) {

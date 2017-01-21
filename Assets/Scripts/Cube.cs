@@ -6,7 +6,7 @@ using System;
 public class Cube : MonoBehaviour {
 
 	public float WaveMax = 1.0f;
-	public float WavePower = 5f;
+	public float WavePower = 4f;
 
 	public Material CubeMaterial;
 	public Material GoalMaterial;
@@ -16,18 +16,6 @@ public class Cube : MonoBehaviour {
 	public int Column { get; private set; }
 	public int Row { get; private set; }
 	public bool IsGoal { get; private set; }
-
-//	void Update() {
-//		
-//		if ( Input.GetMouseButtonDown (0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){ 
-//			RaycastHit hit; 
-//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
-//			if (Physics.Raycast (ray,out hit,100.0f)) {
-//				if (hit.transform.gameObject == gameObject && OnSelected != null)			
-//					OnSelected (this);
-//			}
-//		}
-//	}
 
 	public void SetCoordinate(int column, int row) {
 		Column = column;
@@ -47,31 +35,29 @@ public class Cube : MonoBehaviour {
 		while (power > 0f && index < path.Length) {
 
 			if (down) {
-				if (position.y - power < -WaveMax) {
-					power -= -WaveMax - position.y;
+				position.y -= power;
+				if (position.y < -WaveMax) {		
+					power = -WaveMax - position.y;
 					position.y = -WaveMax;
 				} else {
-					position.y -= power;
-					power = 0;
+					power = 0f;
 				}
 			} else { //up
-				if (position.y + power > WaveMax) {
-					power -= WaveMax - position.y;
+				position.y += power;
+				if (position.y > WaveMax) {
+					power = position.y - WaveMax;
 					position.y = WaveMax;
 				}else {
-					position.y += power;
 					power = 0f;
 				}
 			}
 
-			path [index] = position;
-			index++;
+			path [index++] = position;
 			down = !down;
 		}
 
 		while (index < path.Length) {
-			path [index] = position;
-			index++;
+			path [index++] = position;
 		}
 
 		iTween.MoveTo (gameObject, iTween.Hash("path", path, "easetype", iTween.EaseType.linear, "delay", delay, "time", WavePower * 0.5f));

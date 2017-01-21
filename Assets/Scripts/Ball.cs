@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour {
 		isBursting = true;
 		Debug.Log ("Burst");
 
-		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "time", 1f, "delay", 1f, "oncomplete", "BurstComplete"));
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "time", 1f, "delay", 0.5f, "oncomplete", "BurstComplete"));
 	}
 
 	void BurstComplete() {

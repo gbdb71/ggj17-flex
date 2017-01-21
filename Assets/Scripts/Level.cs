@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Level : MonoBehaviour {
 
 	public Goal Goal;
 	public List<Ball> Balls;
+	public int PushMax = 5;
 
 	void Start () {
 		
@@ -14,5 +16,5 @@ public class Level : MonoBehaviour {
 		}
 
 	}
-
+		
 }
