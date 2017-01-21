@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class Activity : MonoBehaviour {
 
-	// Use this for initialization
+	public HUD HUD;
+	public Board Board;
+	public Level Level;
+
 	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+		foreach (var ball in Level.Balls) {
+			ball.OnDestroy += BallDestroyed;
+		}
+
+
 	}
+
+	void BallDestroyed() {
+
+		HUD.BallCount++;
+		if (Level.Balls.Count == 0) {
+			HUD.Alert("You win!", () => {
+				Debug.Log("Restart");
+			});
+		}
+	}
+
 }

@@ -15,6 +15,18 @@ public class Cube : MonoBehaviour {
 	public int Row { get; private set; }
 	public bool IsGoal { get; private set; }
 
+//	void Update() {
+//		
+//		if ( Input.GetMouseButtonDown (0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){ 
+//			RaycastHit hit; 
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+//			if (Physics.Raycast (ray,out hit,100.0f)) {
+//				if (hit.transform.gameObject == gameObject && OnSelected != null)			
+//					OnSelected (this);
+//			}
+//		}
+//	}
+
 	public void SetCoordinate(int column, int row) {
 		Column = column;
 		Row = row;
@@ -65,8 +77,6 @@ public class Cube : MonoBehaviour {
 	}
 
 	public void SetAsGoal() {
-	
-		Debug.Log ("SetAsGoal");
 
 		IsGoal = true;
 		gameObject.GetComponent<Renderer>().material = GoalMaterial;
@@ -74,8 +84,9 @@ public class Cube : MonoBehaviour {
 	}
 
 	void OnMouseOver() {
-		if(Input.GetMouseButtonDown(0)){
-			if (OnSelected != null)
+		if(Input.GetMouseButtonDown(0) 
+			&& !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() 
+			&& OnSelected != null){
 				OnSelected (this);
 		}
 	}

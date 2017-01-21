@@ -16,7 +16,7 @@ public class Board : MonoBehaviour {
 	public const int Row = 20;
 	public const int Column = 20;
 
-	public float AditionDelay = 0.1f;
+	public float AditionDelay = 0.2f;
 
 
 	public Cube[,] Cubes;

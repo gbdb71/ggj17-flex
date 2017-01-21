@@ -5,14 +5,14 @@ using UnityEngine;
 public class Level : MonoBehaviour {
 
 	public Goal Goal;
+	public List<Ball> Balls;
 
-	// Use this for initialization
 	void Start () {
 		
+		foreach (var ball in Balls) {
+			ball.OnDestroy += () => Balls.Remove (ball);
+		}
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
