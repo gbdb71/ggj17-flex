@@ -7,11 +7,13 @@ public class Cube : MonoBehaviour {
 
 	public float WaveMax = 1.0f;
 	public float WavePower = 5f;
+	public Material GoalMaterial;
 
 	public Action<Cube> OnSelected;
 
 	public int Column { get; private set; }
 	public int Row { get; private set; }
+	public bool IsGoal { get; private set; }
 
 	public void SetCoordinate(int column, int row) {
 		Column = column;
@@ -59,6 +61,15 @@ public class Cube : MonoBehaviour {
 		}
 
 		iTween.MoveTo (gameObject, iTween.Hash("path", path, "easetype", iTween.EaseType.linear, "delay", delay, "time", WavePower * 0.5f));
+
+	}
+
+	public void SetAsGoal() {
+	
+		Debug.Log ("SetAsGoal");
+
+		IsGoal = true;
+		gameObject.GetComponent<Renderer>().material = GoalMaterial;
 
 	}
 
