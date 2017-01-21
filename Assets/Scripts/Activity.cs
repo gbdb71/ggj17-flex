@@ -8,12 +8,25 @@ public class Activity : MonoBehaviour {
 	public Board Board;
 	public Level Level;
 
+	public List<Level> RefLevels;
+	public int _level;
+
 	void Start () {
+
+		if (_level >= RefLevels.Count)
+			HUD.Alert("GameOver!", () => {
+				Debug.Log("GameOver");
+			});
+		
+		if (Level != null)
+			GameObject.Destroy (Level.gameObject);
 	
+		Level = Instantiate (RefLevels [_level++], Vector3.zero, Quaternion.identity);
+		Level.gameObject.transform.parent = gameObject.transform;
+
 		foreach (var ball in Level.Balls) {
 			ball.OnDestroy += BallDestroyed;
 		}
-
 
 	}
 
