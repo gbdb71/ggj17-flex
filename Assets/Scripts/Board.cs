@@ -28,7 +28,7 @@ public class Board : MonoBehaviour {
 	void Start () {
 		
 		CreateBoard ();
-		HighlightGoalArea ();
+
 
 	}
 
@@ -58,7 +58,7 @@ public class Board : MonoBehaviour {
 
 	}
 
-	void HighlightGoalArea() {
+	public void SetGoalArea() {
 
 		for (int i = 0; i < Row; i++) {
 			for (int j = 0; j < Column; j++) {
@@ -69,10 +69,9 @@ public class Board : MonoBehaviour {
 				
 				var bounds1 = cube.gameObject.GetComponent<Renderer>().bounds;
 				var bounds2 = Level.Goal.gameObject.GetComponent<Renderer>().bounds;
-				if (!bounds1.Intersects (bounds2))
-					continue;
 
-				cube.SetAsGoal ();
+				cube.SetAsGoal (bounds1.Intersects (bounds2));
+
 			}
 		}
 

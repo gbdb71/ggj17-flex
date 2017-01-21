@@ -7,6 +7,8 @@ public class Cube : MonoBehaviour {
 
 	public float WaveMax = 1.0f;
 	public float WavePower = 5f;
+
+	public Material CubeMaterial;
 	public Material GoalMaterial;
 
 	public Action<Cube> OnSelected;
@@ -76,10 +78,10 @@ public class Cube : MonoBehaviour {
 
 	}
 
-	public void SetAsGoal() {
+	public void SetAsGoal(bool goal) {
 
-		IsGoal = true;
-		gameObject.GetComponent<Renderer>().material = GoalMaterial;
+		IsGoal = goal;
+		gameObject.GetComponent<Renderer>().material = IsGoal ? GoalMaterial : CubeMaterial;
 
 	}
 

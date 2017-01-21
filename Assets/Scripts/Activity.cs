@@ -13,10 +13,12 @@ public class Activity : MonoBehaviour {
 
 	void Start () {
 
-		if (_level >= RefLevels.Count)
-			HUD.Alert("GameOver!", () => {
-				Debug.Log("GameOver");
-			});
+		if (_level >= RefLevels.Count) {
+			Debug.Log ("GameOver");
+			Invoke ("GameOver", 1.0f);
+
+			return;
+		}
 		
 		if (Level != null)
 			GameObject.Destroy (Level.gameObject);
@@ -25,19 +27,32 @@ public class Activity : MonoBehaviour {
 		Level.gameObject.transform.parent = gameObject.transform;
 
 		foreach (var ball in Level.Balls) {
-			ball.OnDestroy += BallDestroyed;
+			ball.OnDestroy += () => {
+				HUD.BallCount++;
+				Debug.Log("Level.Balls.Count="+Level.Balls.Count);
+				if (Level.Balls.Count == 1) {
+					HUD.Alert("You win!", () => {
+						Start();
+					});
+				}
+			};
 		}
+
+		Board.Level = Level;
+		Board.SetGoalArea ();
 
 	}
 
 	void BallDestroyed() {
 
-		HUD.BallCount++;
-		if (Level.Balls.Count == 0) {
-			HUD.Alert("You win!", () => {
-				Debug.Log("Restart");
-			});
-		}
+
+	}
+
+	void GameOver() {
+		HUD.Alert ("GameOver!", () => {
+			_level = 0;
+			Start();
+		});
 	}
 
 }
