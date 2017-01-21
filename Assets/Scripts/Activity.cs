@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Activity : MonoBehaviour {
 
+	public List<Material> SkyboxMaterials;
+
 	public CameraTarget CameraTarget;
 	public HUD HUD;
 	public Board Board;
@@ -41,6 +43,15 @@ public class Activity : MonoBehaviour {
 		Board.OnLastPush += () => {
 			Invoke ("YouLose", 10);
 		};
+
+		RandomSkybox ();
+		CameraTarget.BackToDefault ();
+	}
+
+	void RandomSkybox() {
+		if (SkyboxMaterials.Count == 0)
+			return;
+		RenderSettings.skybox =  SkyboxMaterials[Random.Range(0, SkyboxMaterials.Count)];
 	}
 
 	void BallDestroyed() {
@@ -48,7 +59,7 @@ public class Activity : MonoBehaviour {
 		HUD.BallCount++;
 		if (Level.Balls.Count == 1) {
 			CameraTarget.BackToDefault ();
-			HUD.Alert("You win!", () => {
+			HUD.Alert("You win.", "Next", () => {
 				Start();
 			});
 		}
@@ -66,7 +77,7 @@ public class Activity : MonoBehaviour {
 
 	void GameOver() {
 		CameraTarget.BackToDefault ();
-		HUD.Alert ("GameOver!", () => {
+		HUD.Alert ("GameOver.", "I want to play again.", () => {
 			_level = 0;
 			Start();
 		});

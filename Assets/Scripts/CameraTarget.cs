@@ -4,48 +4,42 @@ using UnityEngine;
 
 public class CameraTarget : MonoBehaviour {
 
-	Vector3 offset;
+	public Vector3 DefaultAngle;
 
 	Vector3 initialMousePosition;
 	Vector3 initialRotation;
 
-	bool controllingEnabled = true;
-
 	void Update () {
 
-		if (controllingEnabled) {
-			
-			if (Input.GetMouseButtonDown (0)) {
-				initialMousePosition = Input.mousePosition;
-				initialRotation = gameObject.transform.localRotation.eulerAngles;
-			}
+		if (Input.GetMouseButtonDown (0)) {
+			initialMousePosition = Input.mousePosition;
+			initialRotation = gameObject.transform.localRotation.eulerAngles;
+		}
 
-			if (Input.GetMouseButton (0)) {
-		
-				var diff = initialMousePosition - Input.mousePosition;
-				var rotation = initialRotation + new Vector3 (diff.y * 0.5f, -diff.x * 0.1f, 0.0f);
+		if (Input.GetMouseButton (0)) {
+	
+			var diff = initialMousePosition - Input.mousePosition;
+			var rotation = initialRotation + new Vector3 (diff.y * 0.5f, -diff.x * 0.1f, 0.0f);
 
-				rotation.x = rotation.x > 45.0f ? 45.0f : rotation.x;
-				rotation.x = rotation.x < 0.0f ? 0.0f : rotation.x;
+			rotation.x = rotation.x > 45.0f ? 45.0f : rotation.x;
+			rotation.x = rotation.x < 0.0f ? 0.0f : rotation.x;
 
-				gameObject.transform.localRotation = Quaternion.Euler (rotation);
-
-			}
+			gameObject.transform.localRotation = Quaternion.Euler (rotation);
 
 		}
 
 	}
 
-	public void BackToDefault() {
+	public void BackToDefault(bool animated = true) {
+
+		if (gameObject.transform.localRotation.Equals (DefaultAngle))
+			return;
 		
-		iTween.RotateTo (gameObject, iTween.Hash("rotation", Vector3.zero, "time", 2.0f, "oncomplete", "CompleteBackToDefault"));
-
-	}
-
-	void CompleteBackToDefault() {
+		if (animated == false)
+			gameObject.transform.localRotation = Quaternion.Euler (DefaultAngle);
+		else 
+			iTween.RotateTo (gameObject, iTween.Hash ("rotation", DefaultAngle, "time", 3.0f));
 		
-		controllingEnabled = true;
-
 	}
 
 }

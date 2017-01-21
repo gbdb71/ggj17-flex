@@ -9,7 +9,8 @@ public class Cube : MonoBehaviour {
 	public float WavePower = 4f;
 
 	public Material CubeMaterial;
-	public Material GoalMaterial;
+	public Material Goal1Material;
+	public Material Goal2Material;
 	public Material BlinkMaterial;
 
 	public Action<Cube> OnSelected;
@@ -70,7 +71,7 @@ public class Cube : MonoBehaviour {
 	public void SetAsGoal(bool goal) {
 
 		IsGoal = goal;
-		gameObject.GetComponent<Renderer>().material = IsGoal ? GoalMaterial : CubeMaterial;
+		SetMaterial ();
 
 	}
 
@@ -93,11 +94,11 @@ public class Cube : MonoBehaviour {
 
 	public void Blink(float delay = 0.0f) {
 		gameObject.GetComponent<MeshRenderer> ().material = BlinkMaterial;
-		Invoke ("Unblink", delay + 1.0f);
+		Invoke ("SetMaterial", delay + 1.0f);
 	}
 
-	void Unblink() {
-		gameObject.GetComponent<MeshRenderer> ().material = CubeMaterial;
+	void SetMaterial() {
+		gameObject.GetComponent<MeshRenderer> ().material = IsGoal ? ((Row + Column)%2==0 ? Goal1Material : Goal2Material): CubeMaterial;
 	}
 
 }

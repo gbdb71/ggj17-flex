@@ -26,7 +26,7 @@ public class HUD : MonoBehaviour {
 		}
 		set {
 			_pushLeft = value;
-			PushText.text = "Push Left: " + _pushLeft;
+			PushText.text = "Move: " + _pushLeft;
 		}
 	}
 
@@ -36,7 +36,7 @@ public class HUD : MonoBehaviour {
 		}
 		set {
 			_ballCount = value;
-			CountText.text = "Count: " + _ballCount;
+			CountText.text = "Ball: " + _ballCount;
 		}
 	}
 		
@@ -48,14 +48,14 @@ public class HUD : MonoBehaviour {
 		BallCount = 0;
 	}
 
-	public void Alert(string text, Action onButton) {
+	public void Alert(string text, string buttonText, Action onButton) {
 	
 		if (Prompt == null) {
 			Debug.Log ("No prompt");
 			return;
 		}
 
-		Prompt.Set (text, "Okay", onButton);
+		Prompt.Set (text, buttonText, onButton);
 		Prompt.SetActive (true);
 
 	}
