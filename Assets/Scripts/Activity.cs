@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Activity : MonoBehaviour {
 
+	public CameraTarget CameraTarget;
 	public HUD HUD;
 	public Board Board;
 	public Level Level;
@@ -46,6 +47,7 @@ public class Activity : MonoBehaviour {
 
 		HUD.BallCount++;
 		if (Level.Balls.Count == 1) {
+			CameraTarget.BackToDefault ();
 			HUD.Alert("You win!", () => {
 				Start();
 			});
@@ -63,6 +65,7 @@ public class Activity : MonoBehaviour {
 	}
 
 	void GameOver() {
+		CameraTarget.BackToDefault ();
 		HUD.Alert ("GameOver!", () => {
 			_level = 0;
 			Start();
