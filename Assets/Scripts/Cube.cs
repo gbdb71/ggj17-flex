@@ -10,12 +10,15 @@ public class Cube : MonoBehaviour {
 
 	public Material CubeMaterial;
 	public Material GoalMaterial;
+	public Material BlinkMaterial;
 
 	public Action<Cube> OnSelected;
 
 	public int Column { get; private set; }
 	public int Row { get; private set; }
 	public bool IsGoal { get; private set; }
+
+	bool mouseDown = false;
 
 	public void SetCoordinate(int column, int row) {
 		Column = column;
@@ -59,7 +62,7 @@ public class Cube : MonoBehaviour {
 		while (index < path.Length) {
 			path [index++] = position;
 		}
-
+			
 		iTween.MoveTo (gameObject, iTween.Hash("path", path, "easetype", iTween.EaseType.linear, "delay", delay, "time", WavePower * 0.5f));
 
 	}
@@ -73,10 +76,28 @@ public class Cube : MonoBehaviour {
 
 	void OnMouseOver() {
 		if(Input.GetMouseButtonDown(0) 
-			&& !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() 
-			&& OnSelected != null){
-				OnSelected (this);
+			&& !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){
+			mouseDown = true;
 		}
+		if (Input.GetMouseButtonUp (0)
+		    && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ()
+			&& mouseDown
+		    && OnSelected != null) {
+			OnSelected (this);
+		}
+	}
+
+	void OnMouseExit() {
+		mouseDown = false;
+	}
+
+	public void Blink(float delay = 0.0f) {
+		gameObject.GetComponent<MeshRenderer> ().material = BlinkMaterial;
+		Invoke ("Unblink", delay + 1.0f);
+	}
+
+	void Unblink() {
+		gameObject.GetComponent<MeshRenderer> ().material = CubeMaterial;
 	}
 
 }

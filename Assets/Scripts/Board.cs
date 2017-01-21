@@ -47,8 +47,8 @@ public class Board : MonoBehaviour {
 				var clone = GameObject.Instantiate (MasterCube);
 				clone.SetActive (true);
 				clone.transform.parent = MasterCube.transform.parent;
-				float beginX = -Row * 0.5f;
-				float beginZ = -Column * 0.5f;
+				float beginX = -Row * 0.5f + 0.5f;
+				float beginZ = -Column * 0.5f + 0.5f;
 				clone.transform.position = new Vector3 (beginX + j * 1f, 0, beginZ + i * 1f);
 
 				var cube = clone.GetComponent<Cube> ();
@@ -96,6 +96,7 @@ public class Board : MonoBehaviour {
 
 	void Push(Cube cube) {
 		var already = new List<Cube> ();
+		cube.Blink ();
 		Push (new List<Cube> { cube }, already, 0.0f);
 	}
 

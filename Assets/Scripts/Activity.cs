@@ -30,6 +30,7 @@ public class Activity : MonoBehaviour {
 
 		HUD.Level = Level.name.Replace("(Clone)", "");
 		HUD.PushLeft = Level.PushMax;
+		HUD.BallCount = 0;
 
 		Board.Level = Level;
 		Board.HUD = HUD;
