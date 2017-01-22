@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour {
 
 	bool isBursting;
 
+	public AudioSource SucceedSound;
+
 	public Action OnDestroy;
 
 	void OnCollisionEnter(Collision col) {
@@ -25,9 +27,10 @@ public class Ball : MonoBehaviour {
 	void Burst() {
 	
 		isBursting = true;
-		Debug.Log ("Burst");
 
-		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "time", 1f, "delay", 0.5f, "oncomplete", "BurstComplete"));
+		SucceedSound.Play ();
+
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "time", 1f, "delay", 0.3f, "oncomplete", "BurstComplete"));
 	}
 
 	void BurstComplete() {

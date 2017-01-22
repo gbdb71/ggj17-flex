@@ -18,6 +18,8 @@ public class Board : MonoBehaviour {
 
 	public float AditionDelay = 0.2f;
 
+	public AudioClip MoveSound;
+
 	public Action OnLastPush;
 
 	public Cube[,] Cubes;

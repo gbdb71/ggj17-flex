@@ -12,6 +12,7 @@ public class Cube : MonoBehaviour {
 	public Material Goal1Material;
 	public Material Goal2Material;
 	public Material BlinkMaterial;
+	public AudioSource MoveSound;
 
 	public Action<Cube> OnSelected;
 
@@ -64,6 +65,7 @@ public class Cube : MonoBehaviour {
 			path [index++] = position;
 		}
 			
+		MoveSound.Play ();
 		iTween.MoveTo (gameObject, iTween.Hash("path", path, "easetype", iTween.EaseType.linear, "delay", delay, "time", WavePower * 0.5f));
 
 	}

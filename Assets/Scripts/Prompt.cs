@@ -8,6 +8,7 @@ public class Prompt : MonoBehaviour {
 
 	public Text Text;
 	public GameObject Button;
+	public AudioSource Sound;
 
 	void Start () {
 		SetActive (false);
@@ -23,8 +24,10 @@ public class Prompt : MonoBehaviour {
 		Button.GetComponentInChildren<Text>().text = buttonText;
 
 		var button = Button.GetComponent<Button> ();
+
 		button.onClick.RemoveAllListeners ();
 		button.onClick.AddListener (() => {
+			
 			onButton();
 			SetActive(false);
 		});

@@ -10,7 +10,9 @@ public class Level : MonoBehaviour {
 	public int PushMax = 5;
 
 	void Start () {
-		
+
+		gameObject.SetActive (true);
+
 		foreach (var ball in Balls) {
 			ball.OnDestroy += () => Balls.Remove (ball);
 		}

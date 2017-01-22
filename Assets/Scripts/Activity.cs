@@ -59,7 +59,7 @@ public class Activity : MonoBehaviour {
 		HUD.BallCount++;
 		if (Level.Balls.Count == 1) {
 			CameraTarget.BackToDefault ();
-			HUD.Alert("You win.", "Next", () => {
+			HUD.Alert("Good job!", "Next", () => {
 				Start();
 			});
 		}
@@ -77,7 +77,7 @@ public class Activity : MonoBehaviour {
 
 	void GameOver() {
 		CameraTarget.BackToDefault ();
-		HUD.Alert ("GameOver.", "I want to play again.", () => {
+		HUD.Alert ("GameOver.", "Play again.", () => {
 			_level = 0;
 			Start();
 		});
