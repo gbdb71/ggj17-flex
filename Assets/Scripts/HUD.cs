@@ -11,6 +11,9 @@ public class HUD : MonoBehaviour {
 	public Text CountText;
 	public Prompt Prompt;
 
+	public GameObject Clicking;
+	public GameObject Moving;
+
 	public string Level {
 		get {
 			return LevelText.text;
@@ -46,6 +49,24 @@ public class HUD : MonoBehaviour {
 	void Start () {
 		PushLeft = 5;
 		BallCount = 0;
+
+		Clicking.SetActive (false);
+		Moving.SetActive (false);
+	}
+
+	public void ShowTutorial() {
+		if (Level.Equals ("Level 1"))
+			Clicking.SetActive (true);
+
+		if (Level.Equals ("Level 2"))
+			Moving.SetActive (true);
+	}
+
+	public void DismissTutorial() {
+		if (Level.Equals ("Level 1"))
+			Clicking.SetActive (false);
+		if (Level.Equals ("Level 2"))
+			Moving.SetActive (false);
 	}
 
 	public void Alert(string text, string buttonText, Action onButton) {

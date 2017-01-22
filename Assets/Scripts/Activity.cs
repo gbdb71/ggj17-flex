@@ -46,6 +46,10 @@ public class Activity : MonoBehaviour {
 
 		RandomSkybox ();
 		CameraTarget.BackToDefault ();
+
+		HUD.ShowTutorial ();
+
+			
 	}
 
 	void RandomSkybox() {

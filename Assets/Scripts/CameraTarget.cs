@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraTarget : MonoBehaviour {
 
 	public Vector3 DefaultAngle;
+	public HUD HUD;
 
 	Vector3 initialMousePosition;
 	Vector3 initialRotation;
@@ -25,7 +26,7 @@ public class CameraTarget : MonoBehaviour {
 			rotation.x = rotation.x < 0.0f ? 0.0f : rotation.x;
 
 			gameObject.transform.localRotation = Quaternion.Euler (rotation);
-
+			HUD.DismissTutorial ();
 		}
 
 	}

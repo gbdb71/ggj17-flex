@@ -89,6 +89,8 @@ public class Board : MonoBehaviour {
 		if (HUD.PushLeft == 0)
 			return;
 
+		HUD.DismissTutorial ();
+
 		HUD.PushLeft--;
 		Push (cube);
 	
